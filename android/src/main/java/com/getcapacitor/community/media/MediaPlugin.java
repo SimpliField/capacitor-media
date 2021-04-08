@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.getcapacitor.JSArray;
@@ -58,7 +59,15 @@ public class MediaPlugin extends Plugin {
         JSArray albums = new JSArray();
         StringBuffer list = new StringBuffer();
 
+        if (Build.VERSION.SDK_INT >= 29) {
+          Log.d("DEBUG LOG", "___GET ALBUMS Android 10+ no albums - saving to the external storage");
+          response.put("albums", albums);
+          call.resolve(response);
+          return;
+        }
+
         String[] projection = new String[]{"DISTINCT " + MediaStore.Images.ImageColumns.BUCKET_DISPLAY_NAME};
+        //String[] projection = new String[]{MediaStore.Images.Media._ID, MediaStore.Images.Media.BUCKET_DISPLAY_NAME, MediaStore.Images.Media.DATE_TAKEN}; doesn't return empty Dirs
         Cursor cur = getActivity().getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection, null, null, null);
 
         while (cur.moveToNext()) {
@@ -121,8 +130,8 @@ public class MediaPlugin extends Plugin {
                 call.success();
             }
         } else {
-            Log.d("DEBUG LOG", "___ERROR ALBUM ALREADY EXISTS");
-            call.error("Album already exists");
+            Log.d("DEBUG LOG", "___WARN ALBUM ALREADY EXISTS");
+            call.success();
         }
 
     }
@@ -171,44 +180,24 @@ public class MediaPlugin extends Plugin {
 
 
     private void _saveMedia(PluginCall call, String destination) {
-        String dest;
-        if (destination == "MOVIES") {
-            dest = Environment.DIRECTORY_MOVIES;
-        } else {
-            dest = Environment.DIRECTORY_PICTURES;
-        }
-
-        Log.d("DEBUG LOG", "___SAVE MEDIA TO ALBUM");
         String inputPath = call.getString("path");
         if (inputPath == null) {
-            call.reject("Input file path is required");
-            return;
+          call.reject("Input file path is required");
+          return;
         }
+
+        String album = call.getString("album");
+
+        String dest = getAlbumFolderPath(album, destination);
 
         Uri inputUri = Uri.parse(inputPath);
         File inputFile = new File(inputUri.getPath());
 
-        String album = call.getString("album");
-        File albumDir = null;
-        String albumPath;
+        File albumDir = new File(dest);
+
         Log.d("SDK BUILD VERSION", String.valueOf(Build.VERSION.SDK_INT));
-
-        if (Build.VERSION.SDK_INT >= 29) {
-            albumPath = getContext().getExternalMediaDirs()[0].getAbsolutePath();
-
-        }else{
-            albumPath = Environment.getExternalStoragePublicDirectory(dest).getAbsolutePath();
-        }
-
-        // Log.d("ENV LOG", String.valueOf(getContext().getExternalMediaDirs()));
-
-        if (album != null) {
-            albumDir = new File(albumPath, album);
-        }else{
-            call.error("album name required");
-        }
-
         Log.d("ENV LOG - ALBUM DIR", String.valueOf(albumDir));
+        Log.d("DEBUG LOG", "___SAVE MEDIA TO ALBUM");
 
         try {
             File expFile = copyFile(inputFile, albumDir);
@@ -307,4 +296,38 @@ public class MediaPlugin extends Plugin {
         }
     }
 
+    private String getAlbumFolderPath(String folderName, String destination) {
+      String albumFolderPath;
+
+      if (destination == "MOVIES") {
+        albumFolderPath = Environment.DIRECTORY_MOVIES;
+      } else {
+        albumFolderPath = Environment.DIRECTORY_PICTURES;
+      }
+
+      String baseFolderPath;// = Environment.getExternalStoragePublicDirectory(albumFolderPath).getPath();
+      if (Build.VERSION.SDK_INT >= 29) {
+        baseFolderPath = getContext().getExternalMediaDirs()[0].getAbsolutePath();
+      }else{
+        baseFolderPath = Environment.getExternalStoragePublicDirectory(albumFolderPath).getAbsolutePath();
+      }
+      String dirPath = TextUtils.isEmpty(folderName) ? baseFolderPath : baseFolderPath  + File.separator + folderName;
+
+      albumFolderPath = createDirIfNotExist(dirPath);
+
+      return albumFolderPath != null ? albumFolderPath : baseFolderPath;
+    }
+
+    private String createDirIfNotExist(String dirPath) {
+      File dir = new File(dirPath);
+      if (!dir.exists()) {
+        if (dir.mkdirs()) {
+          return dir.getPath();
+        } else {
+          return null;
+        }
+      } else {
+        return dir.getPath();
+      }
+    }
 }

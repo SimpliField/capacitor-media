@@ -75,6 +75,58 @@ media
   .getAlbums()
   .then(console.log) // -> { albums: [{name:'My Album', identifier:'A1-B2-C3-D4'}, {name:'My Another Album', identifier:'E5-F6-G7-H8'}]}
   .catch(console.log);
+
+//
+// On Android 10+ files are stored to the external storage. Get Albums will return an emty albums array.
+// This is done to prevent crashes because of deprecated DISTINCT keyword
+
+//
+// 
+
+import { Media } from '@capacitor-community/media';
+import { Plugins, Capacitor } from '@capacitor/core';
+
+const { Device } = Plugins;
+const media = new Media();
+const ALBUM_NAME = 'SomeAlbum';
+
+const platform = Capacitor.getPlatform();
+
+if (platform === 'android') {
+  return media.savePhoto({ 
+    path: filePath,
+    album: ALBUM_NAME //is optional on Android.
+    // If set and directory is not created - it will be created under the hood.
+    // If not set, external storage will be used on Android 10+ (storage/emulated/0/Android/media/yourAppName)
+    // or DCIM on Android <= 9
+  });
+}
+
+// for iOS a special identifier is required, so firstly need to get albums
+return media.getAlbums()
+  .then(({ albums }) => {
+    const mediaAlbum = albums.find((alb) => alb.name === ALBUM_NAME);
+
+    if (!mediaAlbum) {
+      return media
+        .createAlbum({ name: ALBUM_NAME })
+        .then(() => media.getAlbums())
+        .then(({ albums }) => {
+          const mediaAlbum = albums.find((alb) => alb.name === ALBUM_NAME);
+
+          return mediaAlbum // could be undefined - consider throw
+        });
+    }
+    return mediaAlbum;
+  })
+  .then((mediaAlbum) =>
+    media.savePhoto({
+      path: filePath,
+      album: this.platformService.isiOS()
+        ? mediaAlbum.identifier
+        : mediaAlbum.name, // no album - error is thrown))
+    })
+  );
 ```
 
 ## Disclaimer
