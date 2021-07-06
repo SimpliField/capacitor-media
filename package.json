@@ -13,7 +13,11 @@
     "ios/Plugin/",
     "SimplifieldCapacitorMediaPlugin.podspec"
   ],
-  "author": "",
+  "authors": [
+    "Stewan Silva",
+    "Oleksandr Korneiko",
+    "Quentin Tardivon"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
