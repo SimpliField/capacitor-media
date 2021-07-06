@@ -61,19 +61,18 @@ npx cap sync
 ## Usage
 
 ```js
-import { Media } from '@simplifield/capacitor-media-plugin';
-const media = new Media();
+import { MediaPlugin } from '@simplifield/capacitor-media-plugin';
 
 //
 // Save video to a specific album
-media
+MediaPlugin
   .savePhoto({ path: '/path/to/the/file', album: 'My Album' })
   .then(console.log)
   .catch(console.log);
 
 //
 // Get a list of user albums
-media
+MediaPlugin
   .getAlbums()
   .then(console.log) // -> { albums: [{name:'My Album', identifier:'A1-B2-C3-D4'}, {name:'My Another Album', identifier:'E5-F6-G7-H8'}]}
   .catch(console.log);
@@ -85,17 +84,15 @@ media
 //
 // 
 
-import { Media } from '@simplifield/capacitor-media-plugin';
-import { Plugins, Capacitor } from '@capacitor/core';
+import { MediaPlugin } from '@simplifield/capacitor-media-plugin';
+import { Capacitor } from '@capacitor/core';
 
-const { Device } = Plugins;
-const media = new Media();
 const ALBUM_NAME = 'SomeAlbum';
 
 const platform = Capacitor.getPlatform();
 
 if (platform === 'android') {
-  return media.savePhoto({ 
+  return MediaPlugin.savePhoto({ 
     path: filePath,
     album: ALBUM_NAME //is optional on Android.
     // If set and directory is not created - it will be created under the hood.
@@ -105,7 +102,7 @@ if (platform === 'android') {
 }
 
 // for iOS a special identifier is required, so firstly need to get albums
-return media.getAlbums()
+return MediaPlugin.getAlbums()
   .then(({ albums }) => {
     const mediaAlbum = albums.find((alb) => alb.name === ALBUM_NAME);
 
@@ -122,7 +119,7 @@ return media.getAlbums()
     return mediaAlbum;
   })
   .then((mediaAlbum) =>
-    media.savePhoto({
+    MediaPlugin.savePhoto({
       path: filePath,
       album: this.platformService.isiOS()
         ? mediaAlbum.identifier
@@ -195,25 +192,89 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 <docgen-index>
 
-* [`echo(...)`](#echo)
+* [`getAlbums()`](#getalbums)
+* [`savePhoto(...)`](#savephoto)
+* [`createAlbum(...)`](#createalbum)
+* [Interfaces](#interfaces)
 
 </docgen-index>
 
 <docgen-api>
 <!--Update the source file JSDoc comments and rerun docgen to update the docs below-->
 
-### echo(...)
+### getAlbums()
 
 ```typescript
-echo(options: { value: string; }) => any
+getAlbums() => any
 ```
-
-| Param         | Type                            |
-| ------------- | ------------------------------- |
-| **`options`** | <code>{ value: string; }</code> |
 
 **Returns:** <code>any</code>
 
 --------------------
+
+
+### savePhoto(...)
+
+```typescript
+savePhoto(options?: MediaSaveOptions | undefined) => any
+```
+
+| Param         | Type                                                          |
+| ------------- | ------------------------------------------------------------- |
+| **`options`** | <code><a href="#mediasaveoptions">MediaSaveOptions</a></code> |
+
+**Returns:** <code>any</code>
+
+--------------------
+
+
+### createAlbum(...)
+
+```typescript
+createAlbum(options?: MediaAlbumCreate | undefined) => any
+```
+
+| Param         | Type                                                          |
+| ------------- | ------------------------------------------------------------- |
+| **`options`** | <code><a href="#mediaalbumcreate">MediaAlbumCreate</a></code> |
+
+**Returns:** <code>any</code>
+
+--------------------
+
+
+### Interfaces
+
+
+#### MediaAlbumResponse
+
+| Prop         | Type            |
+| ------------ | --------------- |
+| **`albums`** | <code>{}</code> |
+
+
+#### MediaAlbum
+
+| Prop             | Type                                       |
+| ---------------- | ------------------------------------------ |
+| **`identifier`** | <code>string</code>                        |
+| **`name`**       | <code>string</code>                        |
+| **`count`**      | <code>number</code>                        |
+| **`type`**       | <code>"smart" \| "shared" \| "user"</code> |
+
+
+#### MediaSaveOptions
+
+| Prop        | Type                |
+| ----------- | ------------------- |
+| **`path`**  | <code>string</code> |
+| **`album`** | <code>string</code> |
+
+
+#### MediaAlbumCreate
+
+| Prop       | Type                |
+| ---------- | ------------------- |
+| **`name`** | <code>string</code> |
 
 </docgen-api>
