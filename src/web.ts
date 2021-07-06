@@ -1,10 +1,17 @@
 import { WebPlugin } from '@capacitor/core';
 
-import type { MediaPluginPlugin } from './definitions';
+import type { MediaAlbumResponse, MediaPluginPlugin  } from './definitions';
 
 export class MediaPluginWeb extends WebPlugin implements MediaPluginPlugin {
-  async echo(options: { value: string }): Promise<{ value: string }> {
-    console.log('ECHO', options);
-    return options;
+  getAlbums(): Promise<MediaAlbumResponse> {
+    throw Error('Media web is not implemented');
+  }
+
+  savePhoto(): Promise<void> {
+    throw Error('Media web is not implemented');
+  }
+
+  createAlbum(): Promise<void> {
+    throw Error('Media web is not implemented');
   }
 }

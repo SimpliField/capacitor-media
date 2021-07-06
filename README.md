@@ -41,6 +41,8 @@ yarn add @simplifield/capacitor-media-plugin
 Sync native files:
 # @simplifield/capacitor-media-plugin
 
+Capacitor 3 ready plugin inspired by Capacitor-community/media plugin.
+
 Get device albums. Create an album. Save a photo to an album.
 
 ## Install
