@@ -1,20 +1,10 @@
-// import { WebPlugin } from '@capacitor/core';
-// import { MediaPlugin } from './definitions';
+import { WebPlugin } from '@capacitor/core';
 
-// export class MediaPluginWeb extends WebPlugin implements MediaPlugin {
-//   constructor() {
-//     super({
-//       name: 'MediaPlugin',
-//       platforms: ['web']
-//     });
-//   }
+import type { MediaPluginPlugin } from './definitions';
 
-//   async echo(options: { value: string }): Promise<{value: string}> {
-//     console.log('ECHO', options);
-//     return options;
-//   }
-// }
-
-// const MediaPlugin = new MediaPluginWeb();
-
-// export { MediaPlugin };
+export class MediaPluginWeb extends WebPlugin implements MediaPluginPlugin {
+  async echo(options: { value: string }): Promise<{ value: string }> {
+    console.log('ECHO', options);
+    return options;
+  }
+}

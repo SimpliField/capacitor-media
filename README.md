@@ -39,8 +39,14 @@ yarn add @simplifield/capacitor-media-plugin
 ```
 
 Sync native files:
+# @simplifield/capacitor-media-plugin
+
+Get device albums. Create an album. Save a photo to an album.
+
+## Install
 
 ```bash
+npm install @simplifield/capacitor-media-plugin
 npx cap sync
 ```
 
@@ -185,5 +191,27 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
+<docgen-index>
 
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
+* [`echo(...)`](#echo)
+
+</docgen-index>
+
+<docgen-api>
+<!--Update the source file JSDoc comments and rerun docgen to update the docs below-->
+
+### echo(...)
+
+```typescript
+echo(options: { value: string; }) => any
+```
+
+| Param         | Type                            |
+| ------------- | ------------------------------- |
+| **`options`** | <code>{ value: string; }</code> |
+
+**Returns:** <code>any</code>
+
+--------------------
+
+</docgen-api>
