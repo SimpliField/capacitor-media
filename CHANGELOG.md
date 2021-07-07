@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.2](https://github.com/SimpliField/capacitor-media/compare/v2.0.1...v2.0.2) (2021-07-07)
+
+
+### Bug Fixes
+
+* **media:** remove v2 code ([c2ce5ad](https://github.com/SimpliField/capacitor-media/commit/c2ce5ad3ea31754e90c7bb0a382dd50bf1eadea7))
+
 ### [2.0.1](https://github.com/SimpliField/capacitor-media/compare/v2.0.0...v2.0.1) (2021-07-07)
 
 
