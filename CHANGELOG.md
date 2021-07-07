@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/SimpliField/capacitor-media/compare/v1.1.0...v2.0.0) (2021-07-07)
+
+
+### Features
+
+* android ([dc8b970](https://github.com/SimpliField/capacitor-media/commit/dc8b970e64d067f718936f07429ac1d14f3cd948))
+* ios ([49eab3c](https://github.com/SimpliField/capacitor-media/commit/49eab3c32c92e3b4c101da37b775c008d4998f21))
+* migrate to capacitor3 - initial commit ([151b5fd](https://github.com/SimpliField/capacitor-media/commit/151b5fd9f3a772bf288c332ab23c69e4c2249f77))
+
 ## [1.1.0](https://github.com/capacitor-community/media/compare/v1.0.1...v1.1.0) (2021-07-07)
 
 
