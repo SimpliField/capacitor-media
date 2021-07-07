@@ -1,16 +1,13 @@
 <p align="center"><br><img src="https://user-images.githubusercontent.com/236501/85893648-1c92e880-b7a8-11ea-926d-95355b8175c7.png" width="128" height="128" /></p>
 <h3 align="center">Capacitor Media</h3>
-<p align="center"><strong><code>@capacitor-community/media</code></strong></p>
+<p align="center"><strong><code>@simplifield/capacitor-media-plugin</code></strong></p>
 <p align="center">
-  Capacitor community plugin for enabling extra media capabilities
+  Fork of the https://github.com/capacitor-community/media plugin for enabling extra media capabilities
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/maintenance/yes/2020?style=flat-square" />
   <a href="https://www.npmjs.com/package/@capacitor-community/media"><img src="https://img.shields.io/npm/l/@capacitor-community/media?style=flat-square" /></a>
 <br>
-  <a href="https://www.npmjs.com/package/@capacitor-community/media"><img src="https://img.shields.io/npm/dw/@capacitor-community/media?style=flat-square" /></a>
-  <a href="https://www.npmjs.com/package/@capacitor-community/media"><img src="https://img.shields.io/npm/v/@capacitor-community/media?style=flat-square" /></a>
   <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 <a href="#contributors"><img src="https://img.shields.io/badge/all%20contributors-2-orange?style=flat-square" /></a>
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
@@ -32,13 +29,13 @@ We're starting fresh under an official org. If you were using the previous npm p
 Using npm:
 
 ```bash
-npm install @capacitor-community/media
+npm install @simplifield/capacitor-media-plugin
 ```
 
 Using yarn:
 
 ```bash
-yarn add @capacitor-community/media
+yarn add @simplifield/capacitor-media-plugin
 ```
 
 Sync native files:
@@ -50,22 +47,19 @@ npx cap sync
 ## API
 
 - savePhoto
-- saveVideo
-- saveGif
 - createAlbum
 - getAlbums
-- getMedias `only ios for now`
 
 ## Usage
 
 ```js
-import { Media } from '@capacitor-community/media';
+import { Media } from '@simplifield/capacitor-media-plugin';
 const media = new Media();
 
 //
 // Save video to a specific album
 media
-  .saveVideo({ path: '/path/to/the/file', album: 'My Album' })
+  .savePhoto({ path: '/path/to/the/file', album: 'My Album' })
   .then(console.log)
   .catch(console.log);
 
@@ -83,7 +77,7 @@ media
 //
 // 
 
-import { Media } from '@capacitor-community/media';
+import { Media } from '@simplifield/capacitor-media-plugin';
 import { Plugins, Capacitor } from '@capacitor/core';
 
 const { Device } = Plugins;
