@@ -1,20 +1,17 @@
-// import { WebPlugin } from '@capacitor/core';
-// import { MediaPlugin } from './definitions';
+import { WebPlugin } from '@capacitor/core';
 
-// export class MediaPluginWeb extends WebPlugin implements MediaPlugin {
-//   constructor() {
-//     super({
-//       name: 'MediaPlugin',
-//       platforms: ['web']
-//     });
-//   }
+import type { MediaAlbumResponse, MediaPluginPlugin  } from './definitions';
 
-//   async echo(options: { value: string }): Promise<{value: string}> {
-//     console.log('ECHO', options);
-//     return options;
-//   }
-// }
+export class MediaPluginWeb extends WebPlugin implements MediaPluginPlugin {
+  getAlbums(): Promise<MediaAlbumResponse> {
+    throw Error('Media web is not implemented');
+  }
 
-// const MediaPlugin = new MediaPluginWeb();
+  savePhoto(): Promise<void> {
+    throw Error('Media web is not implemented');
+  }
 
-// export { MediaPlugin };
+  createAlbum(): Promise<void> {
+    throw Error('Media web is not implemented');
+  }
+}
