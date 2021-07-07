@@ -2,9 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-## Breaking change
+## [1.1.0](https://github.com/capacitor-community/media/compare/v1.0.1...v1.1.0) (2021-07-07)
 
-- Android: replace `io.stewan.capacitor.media.MediaPlugin;` to `com.getcapacitor.community.media.MediaPlugin` in your `MainActivity.java`
+
+### Bug Fixes
+
+* save photo on Android 10+ ([258425a](https://github.com/capacitor-community/media/commit/258425a3c3ede3dc0091154a9a7bdbbaeaf4a877))
 
 ### [1.0.1](https://github.com/capacitor-community/media/compare/v1.0.0...v1.0.1) (2020-07-01)
 
