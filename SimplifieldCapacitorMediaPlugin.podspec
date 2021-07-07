@@ -8,8 +8,8 @@ Pod::Spec.new do |s|
   s.summary = package['description']
   s.license = package['license']
   s.homepage = package['repository']['url']
-  s.author = package['author']
-  s.source = { :git => package['repository']['url'], :tag => s.version.to_s }
+  s.authors = package['authors']
+  s.source = { :git => 'https://github.com/SimpliField/capacitor-media', :tag => s.version.to_s }
   s.source_files = 'ios/Plugin/**/*.{swift,h,m,c,cc,mm,cpp}'
   s.ios.deployment_target  = '12.0'
   s.dependency 'Capacitor'
