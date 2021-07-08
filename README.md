@@ -156,9 +156,6 @@ album: this.platform.is('ios') ? album.identifier : album.name;
 - `mkdir www && touch www/index.html`
 - `npx cap add android`
 - `npx cap open android`
-- `[extra step]` in android case we need to tell Capacitor to initialise the plugin:
-
-> on your `MainActivity.java` file add `import com.getcapacitor.community.media.MediaPlugin;` and then inside the init callback `add(MediaPlugin.class);`
 
 Now you should be set to go. Try to run your client using `ionic cap run android --livereload`.
 
